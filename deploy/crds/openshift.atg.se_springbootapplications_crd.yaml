@@ -1,0 +1,78 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: springbootapplications.openshift.atg.se
+spec:
+  group: openshift.atg.se
+  names:
+    kind: SpringBootApplication
+    listKind: SpringBootApplicationList
+    plural: springbootapplications
+    singular: springbootapplication
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: SpringBootApplication is the Schema for the springbootapplications
+        API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: SpringBootApplicationSpec defines the desired state of SpringBootApplication
+          properties:
+            image:
+              type: string
+            imagePullPolicy:
+              type: string
+            reloadOnChange:
+              type: boolean
+            replicas:
+              format: int32
+              minimum: 0
+              type: integer
+            rollingParams:
+              description: RollingParams defines the rolling update strategy for the
+                application
+              properties:
+                maxSurge:
+                  type: string
+                maxUnavailable:
+                  type: string
+              type: object
+            service:
+              description: ServiceSpec defines how the service will be created for
+                the application
+              properties:
+                basePath:
+                  type: string
+                port:
+                  type: string
+                scheme:
+                  type: string
+                type:
+                  type: string
+              type: object
+          required:
+          - image
+          type: object
+        status:
+          description: SpringBootApplicationStatus defines the observed state of SpringBootApplication
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true

@@ -1,0 +1,8 @@
+apiVersion: openshift.atg.se/v1alpha1
+kind: SpringBootApplication
+metadata:
+  name: example-springbootapplication
+spec:
+  # Add fields here
+  size: 3
+  image: test
